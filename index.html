@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GPU 4D Renderer — Hypercube &amp; Polychora</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <canvas id="gl"></canvas>
+
+  <div id="hud">
+    <header>
+      <h1>4D Renderer <span class="gpu-badge">GPU · WebGL2</span></h1>
+      <p class="sub">4D rotation &amp; 4D→3D→2D projection run in the vertex shader.</p>
+    </header>
+
+    <section class="panel">
+      <label class="row">
+        <span>Shape</span>
+        <select id="shapeSelect"></select>
+      </label>
+      <div class="shape-name" id="shapeName">–</div>
+      <div class="stats">
+        <div><b id="statV">–</b><i>vertices</i></div>
+        <div><b id="statE">–</b><i>edges</i></div>
+        <div><b id="statF">–</b><i>faces</i></div>
+        <div><b id="statC">–</b><i>cells</i></div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>4D Rotation</h2>
+      <div class="rot-grid">
+        <div class="rot" id="rot-xy-wrap">
+          <label>XY <span class="val" id="rot-xy-val">0°</span></label>
+          <input type="range" id="rot-xy" min="-180" max="180" step="1" value="0" />
+        </div>
+        <div class="rot">
+          <label>XZ <span class="val" id="rot-xz-val">0°</span></label>
+          <input type="range" id="rot-xz" min="-180" max="180" step="1" value="0" />
+        </div>
+        <div class="rot">
+          <label>XW <span class="val" id="rot-xw-val">0°</span></label>
+          <input type="range" id="rot-xw" min="-180" max="180" step="1" value="0" />
+        </div>
+        <div class="rot">
+          <label>YZ <span class="val" id="rot-yz-val">0°</span></label>
+          <input type="range" id="rot-yz" min="-180" max="180" step="1" value="0" />
+        </div>
+        <div class="rot">
+          <label>YW <span class="val" id="rot-yw-val">0°</span></label>
+          <input type="range" id="rot-yw" min="-180" max="180" step="1" value="0" />
+        </div>
+        <div class="rot">
+          <label>ZW <span class="val" id="rot-zw-val">0°</span></label>
+          <input type="range" id="rot-zw" min="-180" max="180" step="1" value="0" />
+        </div>
+      </div>
+      <div class="btn-row">
+        <button id="resetRot" type="button">Reset rotation</button>
+        <label class="check"><input type="checkbox" id="animate" checked /> Animate</label>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Projection &amp; View</h2>
+      <label class="row">
+        <span>W-camera <span class="val" id="wCamVal">3.50</span></span>
+        <input type="range" id="wCam" min="2.2" max="8" step="0.05" value="3.5" />
+      </label>
+      <label class="row">
+        <span>Scale <span class="val" id="scaleVal">1.00</span></span>
+        <input type="range" id="scale" min="0.3" max="2.5" step="0.01" value="1" />
+      </label>
+      <label class="row">
+        <span>Field of view <span class="val" id="fovVal">50°</span></span>
+        <input type="range" id="fov" min="20" max="100" step="1" value="50" />
+      </label>
+      <label class="row">
+        <span>Anim speed <span class="val" id="speedVal">1.00</span></span>
+        <input type="range" id="speed" min="0" max="3" step="0.01" value="1" />
+      </label>
+      <div class="btn-row">
+        <button id="resetView" type="button">Reset view</button>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Display</h2>
+      <label class="check"><input type="checkbox" id="showFaces" checked /> Faces</label>
+      <label class="check"><input type="checkbox" id="showEdges" checked /> Edges</label>
+      <label class="check"><input type="checkbox" id="showVertices" checked /> Vertices</label>
+      <label class="row">
+        <span>Colour</span>
+        <select id="scheme">
+          <option value="rainbow">Rainbow</option>
+          <option value="heat">Heat</option>
+          <option value="cool">Cool</option>
+          <option value="mono">Mono</option>
+        </select>
+      </label>
+    </section>
+
+    <footer>
+      <span><b id="fps">–</b> fps</span>
+      <span class="hint">Drag to orbit · Scroll to zoom</span>
+    </footer>
+  </div>
+
+  <script type="module" src="src/main.js"></script>
+</body>
+</html>
